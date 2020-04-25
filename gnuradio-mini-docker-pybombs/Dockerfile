@@ -12,7 +12,7 @@ WORKDIR /root/
 RUN ./install-deps.sh $PY_VER
 
 # Install PyBOMBS
-RUN ./install-pybombs.sh $PY_VER
+RUN pip install PyBOMBS
 
 # Configure PyBOMBS
 RUN ./configure-pybombs.sh $MAKETHREADS $GR_COMMIT

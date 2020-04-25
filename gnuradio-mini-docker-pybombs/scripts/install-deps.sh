@@ -1,9 +1,12 @@
 #!/bin/bash
 
+PYTHON2_DEPS="python-dev python-numpy python-yaml python-mako python-lxml python-gi python-gi-cairo python-requests python-zmq python-click python-click-plugins python-setuptools python-pip"
+PYTHON3_DEPS="python3-dev python3-numpy python3-yaml python3-mako python3-lxml python3-gi python3-gi-cairo python3-requests python3-zmq python3-click python3-click-plugins python3-setuptools python3-pip"
+
 if [ "$1" == "2" ]; then
-    PYTHON_DEPS="python-dev python-numpy python-yaml python-mako python-lxml python-gi python-gi-cairo python-requests python-zmq python-click python-click-plugins python-setuptools python-pip"
+    PYTHON_DEPS=${PYTHON2_DEPS}
 else
-    PYTHON_DEPS="python3-dev python3-numpy python3-yaml python3-mako python3-lxml python3-gi python3-gi-cairo python3-requests python3-zmq python3-click python3-click-plugins python3-setuptools python3-pip"
+    PYTHON_DEPS=${PYTHON3_DEPS}
 fi
 
 apt-get update && apt-get install -y \
@@ -20,5 +23,11 @@ apt-get update && apt-get install -y \
     gir1.2-gtk-3.0 \
     python-cairo-dev \
     libzmq3-dev \
-    ${PYTHON_DEPS}
+    ${PYTHON_DEPS} \
     && rm -rf /var/lib/apt/lists/*
+
+if [ "$1" == "3" ]; then
+    ln -s /usr/bin/python3 /usr/bin/python
+    ln-s /usr/bin/pip3 /usr/bin/pip
+    apt-mark hold ${PYTHON2_DEPS}
+fi
