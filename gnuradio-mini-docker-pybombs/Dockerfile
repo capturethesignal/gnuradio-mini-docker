@@ -5,6 +5,8 @@ ARG GR_COMMIT=maint-3.7
 ARG MAKETHREADS=2
 ARG PY_VER=2
 
+RUN echo "Python: ${PY_VER} - GR_COMMIT: ${GR_COMMIT}"
+
 COPY ./scripts /root/
 
 WORKDIR /root/
@@ -12,7 +14,7 @@ WORKDIR /root/
 RUN ./install-deps.sh $PY_VER
 
 # Install PyBOMBS
-RUN pip install PyBOMBS
+RUN ./install-pybombs.sh ${PY_VER}
 
 # Configure PyBOMBS
 RUN ./configure-pybombs.sh $MAKETHREADS $GR_COMMIT
