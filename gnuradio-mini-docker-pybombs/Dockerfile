@@ -11,6 +11,9 @@ COPY ./scripts /root/
 
 WORKDIR /root/
 
+# Give exec perms
+RUN chmod +x *.sh
+
 RUN ./install-deps.sh $PY_VER
 
 # Install PyBOMBS
